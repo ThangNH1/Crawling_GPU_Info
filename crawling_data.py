@@ -4,7 +4,7 @@ import requests
 import re
 
 info = []
-for n_page in range(1, 101):
+for n_page in range(1, 6):
     page = 'https://www.newegg.com/GPUs-Video-Graphics-Cards/SubCategory/ID-48/Page-{}?Tid=7709'.format(n_page)
     result = requests.get(page)
     source = result.text
@@ -48,6 +48,10 @@ for n_page in range(1, 101):
             dirx = ''
         try:
             model = re.findall('Model #: (\S+)',soup.find_all('ul', class_='item-features')[i].text)[0]
+            if(model.find('Item')!=-1):
+                model = model.replace('Item', '')
+            elif(model.find('Return')!=-1):
+                model = model.replace('Return', '')
         except:
             model = ''
         print('Trang {} - san pham {}'.format(n_page, i))
@@ -70,4 +74,4 @@ for n_page in range(1, 101):
 
 print(len(info))
 df = pd.DataFrame(info)
-df.to_csv('info.csv', index=False)
+df.to_csv('info_.csv', index=False)
