@@ -4,7 +4,7 @@ import requests
 import re
 
 info = []
-for n_page in range(1, 6):
+for n_page in range(1, 101):
     page = 'https://www.newegg.com/GPUs-Video-Graphics-Cards/SubCategory/ID-48/Page-{}?Tid=7709'.format(n_page)
     result = requests.get(page)
     source = result.text
